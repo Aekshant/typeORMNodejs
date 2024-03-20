@@ -2,3 +2,5 @@ npx typeorm init --name restAPi --database postgres
 
 npm install express dotenv bcrypt jsonwebtoken concurrently memory-cache 
 npm i @types/express @types/bcrypt @types/jsonwebtoken @types/memory-cache
+
+npx typeorm migration:create ./src/migration/tweets   

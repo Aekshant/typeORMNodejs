@@ -4,6 +4,7 @@ import * as dotenv from "dotenv";
 import { Request, Response } from "express";
 import { userRouter } from "./routes/user.routes";
 import { movieRouter } from "./routes/movie.routes";
+import { tweetRouter } from "./routes/tweet.routes";
 import "reflect-metadata";
 import { errorHandler } from "./middleware/errorHandler";
 dotenv.config();
@@ -14,6 +15,7 @@ const { PORT = 3000 } = process.env;
 app.use(errorHandler);
 app.use("/auth", userRouter);
 app.use("/api", movieRouter);
+app.use("/tweet", tweetRouter);
 
 app.get("*", (req: Request, res: Response) => {
   res.status(505).json({ message: "Bad Request" });

@@ -36,6 +36,9 @@ export class AuthController {
     const userRepository = AppDataSource.getRepository(User);
     const user = await userRepository.findOne({
       where: { id: req[" currentUser"].id },
+      relations: {
+        tweets: true,
+    },
     });
     return res.status(200).json({ ...user, password: undefined });
   }

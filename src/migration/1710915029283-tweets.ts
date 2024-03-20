@@ -1,54 +1,52 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateUserTable1698321500514 implements MigrationInterface {
+export class Tweets1710915029283 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: "users",
+            name: "tweets",
             columns: [
                 {
                     name: "id",
                     type: "varchar",
                     length: "36",
                     isPrimary: true,
-                    // default: "UUID()", // Set default value to be changed later
                 },
                 {
-                    name: "name",
+                    name: "tweet",
                     type: "varchar",
                     isNullable: false
                 },
                 {
-                    name: "email",
+                    name: "userId",
                     type: "varchar",
-                    isNullable: false
-                },
-                {
-                    name: "password",
-                    type: "varchar",
-                    isNullable: false
-                },
-                {
-                    name: "role",
-                    type: "varchar",
-                    default: "'user'"
+                    length: "36",
+                    isNullable: true
                 },
                 {
                     name: "createdAt",
                     type: "timestamp",
-                    default: "CURRENT_TIMESTAMP"
+                    default: "now()"
                 },
                 {
                     name: "updatedAt",
                     type: "timestamp",
-                    default: "CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"
+                    default: "now()"
                 }
             ],
+            foreignKeys: [
+                {
+                    columnNames: ["userId"],
+                    referencedColumnNames: ["id"],
+                    referencedTableName: "users",
+                    onDelete: "SET NULL"
+                }
+            ]
         }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("users");
+        await queryRunner.dropTable("tweets");
     }
 
 }
